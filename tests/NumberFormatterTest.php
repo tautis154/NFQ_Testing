@@ -8,7 +8,7 @@ class NumberFormatterTest extends TestCase
     /**
      * @dataProvider numbersProvider
      */
-    public function testWithNumbers($number, $expected)
+    public function testNumberFormatter($number, $expected)
     {
         $format = new NumberFormatter();
         $this->assertSame($expected, $format->format($number));

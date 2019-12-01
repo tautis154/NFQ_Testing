@@ -6,8 +6,10 @@ use App\MoneyFormatter;
 use App\NumberFormatter;
 use PHPUnit\Framework\TestCase;
 
-class MoneyFormatterTest extends TestCase
+
+class MoneyFormatterTestCase extends TestCase
 {
+
     public function numbersProviderDollar()
     {
         return [
@@ -19,17 +21,15 @@ class MoneyFormatterTest extends TestCase
     /**
      * @dataProvider numbersProviderDollar
      */
-
     public function testMoneyFormatterDollar($input, $midValue, $expectedValue)
     {
-        $mock = $this->createMock(NumberFormatter::class);
-        $mock->expects($this->exactly(1))
-            ->method('format')
-            ->with($input)
-            ->willReturn($midValue);
+        $numFormMock = $this->createMock(NumberFormatter::class);
 
-        $formatter = new MoneyFormatter();
-        $this->assertEquals($expectedValue, $formatter->formatUsd($mock->format($input)));
+        $numFormMock->method('format')->willReturn($midValue);
+
+        $moneyFormatter = new MoneyFormatter($numFormMock);
+
+        $this->assertEquals($expectedValue, $moneyFormatter->formatUsd($input));
     }
 
     public function numbersProviderEuro()
@@ -40,27 +40,16 @@ class MoneyFormatterTest extends TestCase
         ];
     }
 
-
     /**
      * @dataProvider numbersProviderEuro
-
      */
-
-    public function testMoneyFormatterEuro($input, $midValue,  $expectedValue)
+    public function testMoneyFormatterEuro($input, $midValue, $expectedValue)
     {
-        $mock = $this->createMock(NumberFormatter::class);
-        $mock->expects($this->exactly(1))
-            ->method('format')
-            ->with($input)
-            ->willReturn($midValue);
+        $numFormMock = $this->createMock(NumberFormatter::class);
 
-        $formatter = new MoneyFormatter();
-        $this->assertEquals($expectedValue, $formatter->formatEur($mock->format($input)));
-    }
+        $numFormMock->method('format')->willReturn($midValue);
 
-
-    public function testEmpty()
-    {
-        $this->assertTrue(true);
+        $moneyFormatter = new MoneyFormatter($numFormMock);
+        $this->assertEquals($expectedValue, $moneyFormatter->formatEur($input));
     }
 }

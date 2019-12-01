@@ -4,8 +4,10 @@ namespace App;
 
 class MoneyFormatter
 {
-    public function __construct()
-    {
+    private $formatter;
+
+    public function __construct(NumberFormatter $formatter) {
+        $this->formatter = $formatter;
     }
 
     public function formatEur($number): string
@@ -19,5 +21,4 @@ class MoneyFormatter
         $format = new NumberFormatter();
         return '$' . $format->format($number);
     }
-
 }
