@@ -20,7 +20,7 @@ class NumberFormatter
             return number_format($number, 0, '', ' ');
         }
         else if ($number >= 0 && $number < 1000 || $number <= -0) {
-            return str_replace('.00', '', number_format($number, 2, '.', ''));
+            return str_replace('.00', '', number_format($number, 2, '.', ' '));
         }
         return number_format($number);
     }
